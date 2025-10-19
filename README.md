@@ -56,5 +56,27 @@ docker compose up -d --scale web=1 --no-recreate
 - Isolated network `app-net`
 
 
+## Submission Checklist
+
+- [x] `app/Dockerfile`
+- [x] `docker-compose.yml`
+- [x] App: `app/main.py`, `app/requirements.txt`, `app/gunicorn_conf.py`
+- [x] DB init: `db/init.sql`
+- [x] Reverse proxy: `nginx/default.conf`
+- [x] `.env.example` (no real secrets committed)
+- [x] README with build/run/test/persistence/security/scaling
+- [x] Test script: `test/invoke-tests.ps1`
+
+## Required Screenshots
+1) Docker Desktop: `db`, `web`, `nginx` running
+2) Terminal: `docker compose ps`
+3) Browser: `http://localhost:8088/healthz`
+4) PowerShell: POST `/user` response
+5) PowerShell: GET `/user/{id}` response
+6) Terminal: `docker compose exec web sh -lc "tail -n 50 /app/logs/app.log"`
+7) Terminal: after scaling (`--scale web=3`), show `docker compose ps`
+
+
+
 
 
