@@ -45,6 +45,15 @@ docker compose ps
 
 docker compose up -d --scale web=1 --no-recreate
 
+## Security Measures
+
+- App runs as non-root (UID/GID 10001)
+- Minimal base images (python:3.12-slim, postgres:16-alpine, nginx:alpine)
+- Least privilege for app: dropped capabilities, no-new-privileges
+- App filesystem read-only; writable volume only for logs
+- Secrets via `.env` (sample provided as `.env.example`, real `.env` not committed)
+- Health checks on DB and App
+- Isolated network `app-net`
 
 
 
