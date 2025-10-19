@@ -34,5 +34,18 @@ Invoke-RestMethod -Method Get -Uri http://localhost:8088/user/1
 View logs
 docker compose exec web sh -lc "tail -n 50 /app/logs/app.log"
 
+## Scaling (Bonus)
+
+- Scale to 3 replicas:
+docker compose up -d --scale web=3 --no-recreate
+docker compose ps
+
+- Keep using http://localhost:8088 — Nginx routes to the `web` service across replicas.
+- Return to 1 replica:
+
+docker compose up -d --scale web=1 --no-recreate
+
+
+
 
 
