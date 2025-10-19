@@ -46,6 +46,8 @@ services:
     cap_drop:
       - ALL
     read_only: true
+    tmpfs:
+      - /tmp
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')\""]
       interval: 10s
