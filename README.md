@@ -76,6 +76,11 @@ docker compose up -d --scale web=1 --no-recreate
 6) Terminal: `docker compose exec web sh -lc "tail -n 50 /app/logs/app.log"`
 7) Terminal: after scaling (`--scale web=3`), show `docker compose ps`
 
+### Quick Tunnel (no domain)
+1) docker rm -f cftunnel
+2) docker run -d --name cftunnel --restart unless-stopped cloudflare/cloudflared:latest tunnel --no-autoupdate --url http://host.docker.internal:8088
+3) docker logs -f cftunnel → copy the https://<random>.trycloudflare.com URL
+4) Test: https://<random>.trycloudflare.com/healthz
 
 
 
