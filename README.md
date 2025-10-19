@@ -20,3 +20,19 @@ docker compose down
 docker compose up -d
 
 3) Fetch the same user (GET /user/{id}) — data is still there 
+
+## Test the API
+
+- Health: http://localhost:8080/healthz
+
+### Create a user
+```powershell
+$body = @{ first_name = "Ada"; last_name = "Lovelace" } | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://localhost:8088/user -Body $body -ContentType "application/json"
+Fetch the user
+Invoke-RestMethod -Method Get -Uri http://localhost:8088/user/1
+View logs
+docker compose exec web sh -lc "tail -n 50 /app/logs/app.log"
+
+
+
