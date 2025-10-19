@@ -1,40 +1,22 @@
 # Advance Containers Assignment
 This repo contains a containerized FastAPI service + PostgreSQL DB, orchestrated by Docker Compose, with Nginx as a reverse proxy for optional scaling/load balancing.
-## Run
+## How to Run
 
-```powershell
-docker compose build
+1) Copy `.env.example` to `.env` and set your own password.
+2) Start:
 docker compose up -d
 docker compose ps
+3) Base URL (via Nginx): http://localhost:8088
+4) Health: http://localhost:8088/healthz
+## Persistence (Volumes)
 
-
-## Test API
-
-- GET http://localhost:8081/healthz
-
-### Create a user
-```powershell
-$body = @{ first_name = "Ada"; last_name = "Lovelace" } | ConvertTo-Json
-Invoke-RestMethod -Method Post -Uri http://localhost:8081/user -Body $body -ContentType "application/json"
-
-Fetch the user
-Invoke-RestMethod -Method Get -Uri http://localhost:8081/user/1
-View logs
-docker compose exec web sh -c "tail -n 50 /app/logs/app.log"
-
-## Persistence
-
-- Database data is stored in the Docker named volume **pgdata**.
-- App file logs are stored in the volume **app-logs** at `/app/logs/app.log`.
-- `docker compose down` keeps data; `docker compose down -v` wipes it.
+- Database data persists in the named volume `pgdata`.
+- App file logs persist in `app-logs` at `/app/logs/app.log`.
 
 ### Quick check
-1) Create a user at http://localhost:8081 (temporary port):
-   - POST /user with { "first_name": "Ada", "last_name": "Lovelace" }
-2) Stop and start:
+1) Create a user (POST /user).
+2) Restart containers:
 docker compose down
 docker compose up -d
-3) Fetch the same user:
-- GET /user/1 (or the ID you got)
-- The record is still there 
 
+3) Fetch the same user (GET /user/{id}) — data is still there 
