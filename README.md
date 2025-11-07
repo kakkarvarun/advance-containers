@@ -82,6 +82,6 @@ docker compose up -d --scale web=1 --no-recreate
 3) docker logs -f cftunnel → copy the https://<random>.trycloudflare.com URL
 4) Test: https://<random>.trycloudflare.com/healthz
 
-
+add “CI test”
 
 
